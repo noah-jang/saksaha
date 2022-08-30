@@ -46,6 +46,7 @@ mod test {
             let herself = disc_1_clone.addr_table.get_mapped_addr(&pk_1).await;
 
             assert_eq!(herself.is_none(), true);
+            tokio::time::sleep(Duration::from_secs(5)).await;
 
             disc_1_clone
                 .addr_table
@@ -70,6 +71,7 @@ mod test {
 
         test_thread.await.unwrap();
     }
+
     #[tokio::test(flavor = "multi_thread")]
     async fn test_whoareyou_4_to_1_starting_cli_1_2_first_and_then_rest() {
         utils::init();

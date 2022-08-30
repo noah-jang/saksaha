@@ -21,7 +21,7 @@ impl Encoder<Msg> for UpgradedP2PCodec {
 
         // let t = dst.to_vec();
 
-        self.cipher.apply_keystream(dst);
+        // self.cipher.apply_keystream(dst);
 
         // println!(
         //     "\n666 upgraded encoded!!, id: {}, r: {}, \noriginal buf: {:?}\nbuf: {:?}",
@@ -45,7 +45,7 @@ impl Decoder for UpgradedP2PCodec {
     ) -> Result<Option<Self::Item>, TrptError> {
         // let t = src.to_vec();
 
-        self.cipher.apply_keystream(src);
+        // self.cipher.apply_keystream(src);
 
         // println!(
         //     "\n1313 upgraded decoded, id: {}\noriginal buf: {:?}\nsrc: {:?}",

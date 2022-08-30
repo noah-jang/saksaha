@@ -1,8 +1,10 @@
-use super::dev_local_1;
-use super::dev_local_2;
+// use super::dev_local_1;
+// use super::dev_local_2;
 use crate::config::NodeConfig;
 use crate::config::RPCConfig;
 use sak_p2p_addr::UnknownAddr;
+
+use super::profile;
 
 pub(crate) struct ProfiledConfig {
     pub(crate) app_prefix: String,
@@ -21,8 +23,13 @@ pub(crate) struct ProfiledP2PConfig {
 impl ProfiledConfig {
     pub(crate) fn new(cfg_profile: &String) -> Result<Self, String> {
         match cfg_profile.as_ref() {
-            "dev_local_1" => Ok(dev_local_1::get_config()),
-            "dev_local_2" => Ok(dev_local_2::get_config()),
+            "dev_local_1" => Ok(profile::dev_local_1()),
+            "dev_local_2" => Ok(profile::dev_local_2()),
+            "dev_local_3" => Ok(profile::dev_local_3()),
+            "dev_local_4" => Ok(profile::dev_local_4()),
+            "dev_local_5" => Ok(profile::dev_local_5()),
+            "dev_local_6" => Ok(profile::dev_local_6()),
+            "dev_local_7" => Ok(profile::dev_local_7()),
             _ => {
                 return Err(format!(
                     "DevConfig does not exist with the \

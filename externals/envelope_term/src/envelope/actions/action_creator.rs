@@ -12,7 +12,7 @@ use envelope_contract::{
     Channel, ChatMessage, GetChListParams, GetMsgParams, OpenChParams,
     SendMsgParams,
 };
-use log::info;
+use log::{info, warn};
 use sak_contract_std::{CtrCallType, CtrRequest};
 use sak_crypto::{decode_hex, SakKey};
 use sak_crypto::{derive_aes_key, PublicKey, SecretKey, ToEncodedPoint};
@@ -56,7 +56,11 @@ pub(crate) async fn select(
     if let View::ChList = state.view {
         state.selected_ch_id = match state.ch_list_state.selected() {
             Some(i) => (state.ch_list[i]).channel.ch_id.clone(),
-            None => String::default(),
+            None => {
+                warn!("Select the appropriate channel");
+
+                return Ok(());
+            }
         };
 
         log::info!("ch_id: {:?}", state.selected_ch_id);
@@ -322,7 +326,6 @@ async fn send_messages(
     };
 
     let chat_msg_serialized = serde_json::to_string(&chat_msg)?;
-    // let chat_msg_serialized = serde_json::to_string(&msg)?;
 
     let encrypted_msg = {
         let encrypted_msg =
